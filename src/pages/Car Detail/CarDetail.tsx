@@ -79,7 +79,7 @@ const CarDetail = () => {
       <div className="car-content">
         <div className="car-content-main">
           <p className="car-title">{car.model}</p>
-          <ul className="content__nav-list">
+          {/* <ul className="content__nav-list">
             <li className="content__nav-item">
               <a href="#" className="content__nav-link">
                 Số tự động
@@ -100,7 +100,7 @@ const CarDetail = () => {
                 Miễn thế chấp
               </a>
             </li>
-          </ul>
+          </ul> */}
           <hr className="content_nav-hr" />
           <div className="content-section">
             <p className="content-section-title">Đặc điểm</p>
@@ -109,21 +109,21 @@ const CarDetail = () => {
                 <img src="/images/soghe.png" alt="" />
                 <div className="characteristic-item">
                   <span>Số ghế</span>
-                  <p> 7 chỗ</p>
+                  <p>{car.seat}</p>
                 </div>
               </div>
               <div className="content-section-characteristic">
                 <img src="/images/manual-transmission.png" alt="" />
                 <div className="characteristic-item">
                   <span>Truyền động</span>
-                  <p> Số tự động</p>
+                  <p>{car.transmission}</p>
                 </div>
               </div>
               <div className="content-section-characteristic">
                 <img src="/images/car-oil.png" alt="" />
                 <div className="characteristic-item">
                   <span>Nhiên liệu</span>
-                  <p> Xăng</p>
+                  <p>{car.fuel}</p>
                 </div>
               </div>
             </div>
@@ -163,7 +163,7 @@ const CarDetail = () => {
             <p className="content-section-title">Vị trí xe</p>
             <div className="address-detail">
               <img src="/images/address.png" alt="" />
-              <p>Quận 10, TP. Hồ Chí Minh</p>
+              <p>{car.address}</p>
             </div>
             <p className="address-des">
               Địa chỉ cụ thể sẽ được hiển thị sau khi đặt cọc
@@ -180,10 +180,10 @@ const CarDetail = () => {
               <span>1 100 000đ/ ngày</span>
             </div>
             <hr className="info-right-hr" />
-            <div className="total_money">
+            {/* <div className="total_money">
               <p>Tổng cộng</p>
               <p>1 100 000đ</p>
-            </div>
+            </div> */}
             <div className="rent" onClick={handleOpenModal}>
               <p>CHỌN THUÊ</p>
             </div>

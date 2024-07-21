@@ -11,7 +11,7 @@ import {
   MdTireRepair,
   MdVideoCameraBack,
 } from "react-icons/md";
-import { Card, Form, Button, Input, Image, Flex } from "antd";
+import { Card, Form, Button, Input, Image, Flex, Select } from "antd";
 import ToggleButton from "../../common/components/Button/toggleButtonProps";
 import { FaCamera, FaMapMarkedAlt, FaTruckPickup } from "react-icons/fa";
 import { TbView360Number } from "react-icons/tb";
@@ -22,7 +22,6 @@ import { LuMonitorPlay } from "react-icons/lu";
 import { FaCarBurst } from "react-icons/fa6";
 import carService from "../../common/api/carService";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
 
 interface ToggleButton {
   id: string;
@@ -161,7 +160,6 @@ const CarRegister = () => {
   const [preview, setPreview] = useState<string[]>([]);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [featureList, setFeatureList] = useState<any>({});
-  const nav = useNavigate();
 
   const handleToggle = (isOn: boolean, id: string) => {
     console.log(isOn, id);
@@ -212,7 +210,6 @@ const CarRegister = () => {
     delete body.feature;
     // call API here
     createCar(body);
-    nav("/user");
   };
 
   const createCar = async (values: any) => {
@@ -288,13 +285,23 @@ const CarRegister = () => {
                   <Form.Item
                     name="make"
                     rules={[
-                      {
-                        required: true,
-                        message: "Xin hãy chọn hãng xe!",
-                      },
+                      { required: true, message: "Xin hãy chọn hãng xe!" },
                     ]}
                   >
-                    <Input className="carinfo-input" />
+                    <Select allowClear>
+                      <option value="Toyota">Toyota</option>
+                      <option value="Chevrolet">Chevrolet</option>
+                      <option value="Ford">Ford</option>
+                      <option value="Honda">Honda</option>
+                      <option value="Hyundai">Hyundai</option>
+                      <option value="Isuzu">Isuzu</option>
+                      <option value="Suzuki">Suzuki</option>
+                      <option value="Mitsubishi">Mitsubishi</option>
+                      <option value="Mazda">Mazda</option>
+                      <option value="Nissan">Nissan</option>
+                      <option value="Subaru">Subaru</option>
+                      <option value="Kia">Kia</option>
+                    </Select>
                   </Form.Item>
                 </div>
 
@@ -350,11 +357,14 @@ const CarRegister = () => {
                     rules={[
                       {
                         required: true,
-                        message: "Xin hãy điền loại truyền động vào!",
+                        message: "Xin hãy chọn loại truyền động vào!",
                       },
                     ]}
                   >
-                    <Input className="carinfo-input" />
+                    <Select allowClear>
+                      <option value="Automatic">Automatic</option>
+                      <option value="Manual">Manual</option>
+                    </Select>
                   </Form.Item>
                 </div>
 
@@ -365,11 +375,14 @@ const CarRegister = () => {
                     rules={[
                       {
                         required: true,
-                        message: "Xin hãy điền loại nhiên liệu vào!",
+                        message: "Xin hãy chọn loại nhiên liệu vào!",
                       },
                     ]}
                   >
-                    <Input className="carinfo-input" />
+                    <Select allowClear>
+                      <option value="Gasoline">Gasoline</option>
+                      <option value="Diesel">Diesel</option>
+                    </Select>
                   </Form.Item>
                 </div>
               </div>

@@ -130,7 +130,7 @@ const Homepage: React.FC = () => {
             <div key={car.id} className="car-card">
               <div className="car-image">
                 <img
-                  src={BASE_HOST + splitFileName(car.imageDTOS[0].carImagePath)}
+                  src={`${window.location.origin}/newImages/${car?.imageDTOS[0].carImagePath}`}
                 />
               </div>
               <div className="car-info">

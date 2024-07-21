@@ -22,7 +22,13 @@ const RentalPage: React.FC = () => {
     year: number;
     name: string;
     cost: number;
+    imageDTOS: ImageDTOS[];
   }
+
+  interface ImageDTOS {
+    carImagePath: string;
+  }
+
   const size = 8;
   const [page, setPage] = useState(1);
   const [allRentals, setAllRentals] = useState<Rental[]>([]);
@@ -55,7 +61,10 @@ const RentalPage: React.FC = () => {
           onClick={() => nav(`/rental/${rental.rentalId}`)}
         >
           <div className="rental-image">
-            <img src={`${window.location.origin}/${path}`} alt="" />
+            <img
+              src={`${window.location.origin}/newImages/${rental.carResponse?.imageDTOS[0].carImagePath}`}
+              alt=""
+            />
           </div>
           <div className="rental-info">
             <h3>

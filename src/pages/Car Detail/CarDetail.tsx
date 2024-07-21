@@ -11,6 +11,8 @@ import { toast } from "react-toastify";
 import carService from "../../common/api/carService";
 import { Car } from "../carRegister";
 import { getImageUrl } from "../../common/helpers";
+const transmission: any = { Automatic: "Số tự động", Manual: "Số sàn" };
+const fuel: any = { Gasoline: "Xăng", Diesel: "Dầu Diesel" };
 
 const CarDetail = () => {
   const { id } = useParams();
@@ -41,6 +43,8 @@ const CarDetail = () => {
     getCarDetail();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
+
+  console.log(car.imageDTOS);
 
   console.log(
     car?.imageDTOS?.length ? getImageUrl(car.imageDTOS[0]?.carImagePath) : ""
@@ -116,14 +120,14 @@ const CarDetail = () => {
                 <img src="/images/manual-transmission.png" alt="" />
                 <div className="characteristic-item">
                   <span>Truyền động</span>
-                  <p>{car.transmission}</p>
+                  <p>{transmission[car.transmission]}</p>
                 </div>
               </div>
               <div className="content-section-characteristic">
                 <img src="/images/car-oil.png" alt="" />
                 <div className="characteristic-item">
                   <span>Nhiên liệu</span>
-                  <p>{car.fuel}</p>
+                  <p>{fuel[car.fuel]}</p>
                 </div>
               </div>
             </div>

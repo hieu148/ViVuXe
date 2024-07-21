@@ -23,6 +23,12 @@ const RentalDetailPage: React.FC = () => {
     year: number;
     name: string;
     cost: number;
+    ownerName: string;
+    imageDTOS: ImageDTOS[];
+  }
+
+  interface ImageDTOS {
+    carImagePath: string;
   }
 
   const { id }: any = useParams();
@@ -31,6 +37,8 @@ const RentalDetailPage: React.FC = () => {
   const fetchRentalDetail = async () => {
     try {
       const { data } = await rentalService.getRentalById(id);
+      console.log(data);
+
       setRental(data);
     } catch (err) {
       console.error("Error fetching rentals:", err);
@@ -65,7 +73,10 @@ const RentalDetailPage: React.FC = () => {
             <Card bordered={false}>
               <div className="detail-1">
                 <div className="img-container">
-                  <img src={anh1} alt="" />
+                  <img
+                    src={`${window.location.origin}/newImages/${rental.carResponse?.imageDTOS[0].carImagePath}`}
+                    alt=""
+                  />
                 </div>
                 <div className="info">
                   <h2>
@@ -123,7 +134,9 @@ const RentalDetailPage: React.FC = () => {
                 <div className="item-info-right">
                   <p className="item-info-right-title">Chủ xe</p>
                   <div>
-                    <p className="item-info-1">Nguyễn Văn Tài</p>
+                    <p className="item-info-1">
+                      {rental.carResponse?.ownerName}
+                    </p>
                   </div>
 
                   <br />

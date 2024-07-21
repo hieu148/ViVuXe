@@ -22,6 +22,7 @@ import { LuMonitorPlay } from "react-icons/lu";
 import { FaCarBurst } from "react-icons/fa6";
 import carService from "../../common/api/carService";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 interface ToggleButton {
   id: string;
@@ -160,6 +161,7 @@ const CarRegister = () => {
   const [preview, setPreview] = useState<string[]>([]);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [featureList, setFeatureList] = useState<any>({});
+  const nav = useNavigate();
 
   const handleToggle = (isOn: boolean, id: string) => {
     console.log(isOn, id);
@@ -210,6 +212,7 @@ const CarRegister = () => {
     delete body.feature;
     // call API here
     createCar(body);
+    nav("/user");
   };
 
   const createCar = async (values: any) => {
@@ -362,8 +365,8 @@ const CarRegister = () => {
                     ]}
                   >
                     <Select allowClear>
-                      <option value="Automatic">Automatic</option>
-                      <option value="Manual">Manual</option>
+                      <option value="Automatic">Số tự động</option>
+                      <option value="Manual">Số sàn</option>
                     </Select>
                   </Form.Item>
                 </div>
@@ -380,8 +383,8 @@ const CarRegister = () => {
                     ]}
                   >
                     <Select allowClear>
-                      <option value="Gasoline">Gasoline</option>
-                      <option value="Diesel">Diesel</option>
+                      <option value="Gasoline">Xăng</option>
+                      <option value="Diesel">Dầu Diesel</option>
                     </Select>
                   </Form.Item>
                 </div>

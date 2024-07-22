@@ -10,7 +10,7 @@ import Cantho from "../../assets/Cantho.jpg";
 import TanSonNhat from "../../assets/TanSonNhat.webp";
 import NoiBai from "../../assets/NoiBai.jpg";
 import SBDaNang from "../../assets/SBDaNang.jpg";
-
+import { useNavigate } from "react-router-dom";
 import carService from "../../common/api/carService";
 
 interface Item {
@@ -79,6 +79,13 @@ const Homepage: React.FC = () => {
     fetchCar();
   }, []);
 
+  const navigate = useNavigate();
+
+  const handleCardClick = (id: number) => {
+    console.log("Car ID:", id); // Debugging output
+    navigate(`/cardetail/${id}`);
+  };
+
   interface ImageWithAnnotation {
     id: number;
     name: string;
@@ -126,10 +133,15 @@ const Homepage: React.FC = () => {
         <p className="title">Xe Phù Hợp Cho Bạn</p>
         <div className="car-grid">
           {allCars.map((car) => (
-            <div key={car.id} className="car-card">
+            <div
+              key={car.id}
+              className="car-card"
+              onClick={() => handleCardClick(car.id)}
+            >
               <div className="car-image">
                 <img
                   src={`${window.location.origin}/newImages/${car?.imageDTOS[0].carImagePath}`}
+                  alt={`${car.make} ${car.model}`}
                 />
               </div>
               <div className="car-info">

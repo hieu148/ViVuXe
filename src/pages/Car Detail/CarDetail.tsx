@@ -3,9 +3,11 @@
 import { useEffect, useState } from "react";
 import "./CarDetail.scss";
 import Features from "./Features";
-import RentalForm from "./RentalForm";
 import CarImage from "./CarImage";
 import Modal from "./Modal";
+import { DatePicker, GetProps } from "antd";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+import dayjs from "dayjs";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import carService from "../../common/api/carService";
@@ -51,9 +53,26 @@ interface ImageDTOS {
   carImagePath: string;
 }
 
+type RangePickerProps = GetProps<typeof DatePicker.RangePicker>;
+
 const CarDetail = () => {
   const { id } = useParams();
   const [car, setCar] = useState<Car>({} as Car);
+
+  // const [pickupDate, setPickupDate] = useState("2024-06-11T21:00");
+  // const [returnDate, setReturnDate] = useState("2024-06-12T21:00");
+
+  dayjs.extend(customParseFormat);
+  const { RangePicker } = DatePicker;
+
+  const disabledDate: RangePickerProps["disabledDate"] = (current: any) => {
+    // Can not select days before today and today
+    return current && current < dayjs().endOf("day");
+  };
+
+  const onDatePicker = (values: any) => {
+    console.log(values);
+  };
 
   const [showModal, setShowModal] = useState(false);
 
@@ -120,7 +139,9 @@ const CarDetail = () => {
 
       <div className="car-content">
         <div className="car-content-main">
-          <p className="car-title">{car.model}</p>
+          <p className="car-title">
+            {car.make} {car.model}
+          </p>
           <hr className="content_nav-hr" />
           <div className="content-section">
             <p className="content-section-title">Đặc điểm</p>
@@ -193,7 +214,36 @@ const CarDetail = () => {
         <div className="car-content-right">
           <div className="item-info-right">
             <p className="price-detail">{car.cost?.toLocaleString()} đ/ngày</p>
-            <RentalForm />
+            <form className="rental-form">
+              <div className="date-section">
+                <div className="date-box">
+                  {/* <label htmlFor="pickup-date">Nhận xe</label>
+                  {/* <input
+                    type="datetime-local"
+                    className="custom-datetime"
+                    id="pickup-date"
+                    value={pickupDate}
+                    onChange={(e) => setPickupDate(e.target.value)}
+                  /> */}
+
+                  <RangePicker
+                    disabledDate={disabledDate}
+                    onChange={onDatePicker}
+                  />
+                </div>
+                <hr />
+                {/* <div className="date-box">
+                  <label htmlFor="return-date">Trả xe</label>
+                  <input
+                    className="custom-datetime"
+                    type="datetime-local"
+                    id="return-date"
+                    value={returnDate}
+                    onChange={(e) => setReturnDate(e.target.value)}
+                  />
+                </div> */}
+              </div>
+            </form>
             <hr className="info-right-hr" />
             <div className="total_money">
               <span>Đơn giá thuê</span>

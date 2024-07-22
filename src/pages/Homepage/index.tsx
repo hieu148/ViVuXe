@@ -12,8 +12,8 @@ import NoiBai from "../../assets/NoiBai.jpg";
 import SBDaNang from "../../assets/SBDaNang.jpg";
 
 import carService from "../../common/api/carService";
-import { BASE_HOST } from "../../common/api/axiousClient";
-import { splitFileName } from "../../common/helpers";
+// import { BASE_HOST } from "../../common/api/axiousClient";
+// import { splitFileName } from "../../common/helpers";
 
 interface Item {
   name: string;

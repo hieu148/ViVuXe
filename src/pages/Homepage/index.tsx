@@ -12,8 +12,6 @@ import NoiBai from "../../assets/NoiBai.jpg";
 import SBDaNang from "../../assets/SBDaNang.jpg";
 
 import carService from "../../common/api/carService";
-// import { BASE_HOST } from "../../common/api/axiousClient";
-// import { splitFileName } from "../../common/helpers";
 
 interface Item {
   name: string;
@@ -29,6 +27,7 @@ const data: Item[] = [
 ];
 
 const Homepage: React.FC = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [results, setResults] = useState<Item[]>([]);
 
   const handleSearch = ({

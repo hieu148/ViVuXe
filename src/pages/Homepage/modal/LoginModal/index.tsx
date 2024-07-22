@@ -44,6 +44,12 @@ const LoginModal: React.FC<LoginModalProps> = ({ visible, onClose }) => {
     onClose();
   };
 
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      form.submit();
+    }
+  };
+
   return (
     <Modal
       title="Đăng nhập"
@@ -66,7 +72,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ visible, onClose }) => {
             },
           ]}
         >
-          <Input />
+          <Input onKeyPress={handleKeyPress} />
         </Form.Item>
 
         <p>Mật khẩu</p>
@@ -79,7 +85,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ visible, onClose }) => {
             },
           ]}
         >
-          <Input.Password />
+          <Input.Password onKeyPress={handleKeyPress} />
         </Form.Item>
         <br />
       </Form>

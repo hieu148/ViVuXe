@@ -46,7 +46,7 @@ const Homepage: React.FC = () => {
   };
 
   interface Car {
-    id: number;
+    carId: number;
     make: string;
     model: string;
     year: number;
@@ -134,9 +134,9 @@ const Homepage: React.FC = () => {
         <div className="car-grid">
           {allCars.map((car) => (
             <div
-              key={car.id}
+              key={car.carId}
               className="car-card"
-              onClick={() => handleCardClick(car.id)}
+              onClick={() => handleCardClick(car.carId)}
             >
               <div className="car-image">
                 <img

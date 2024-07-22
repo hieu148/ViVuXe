@@ -9,10 +9,47 @@ import Modal from "./Modal";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import carService from "../../common/api/carService";
-import { Car } from "../carRegister";
 import { getImageUrl } from "../../common/helpers";
 const transmission: any = { Automatic: "Số tự động", Manual: "Số sàn" };
 const fuel: any = { Gasoline: "Xăng", Diesel: "Dầu Diesel" };
+
+interface Car {
+  carId: number;
+  licensePlate: string;
+  cost: number;
+  createDate: string;
+  address: string;
+  make: string;
+  model: string;
+  seat: number;
+  year: number;
+  transmission: string;
+  fuel: string;
+  bluetooth: boolean;
+  map: boolean;
+  tireSensor: boolean;
+  collisionSensor: boolean;
+  speedWarning: boolean;
+  truckCover: boolean;
+  camera360: boolean;
+  sideCamera: boolean;
+  dashCamera: boolean;
+  rearCamera: boolean;
+  gps: boolean;
+  childSeat: boolean;
+  usb: boolean;
+  spareTire: boolean;
+  dvdScreen: boolean;
+  etc: boolean;
+  airbags: boolean;
+  status: string;
+  description: string;
+  imageDTOS: ImageDTOS[];
+}
+
+interface ImageDTOS {
+  carImagePath: string;
+}
 
 const CarDetail = () => {
   const { id } = useParams();
@@ -44,10 +81,14 @@ const CarDetail = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
+  console.log(car);
+
   console.log(car.imageDTOS);
 
   console.log(
-    car?.imageDTOS?.length ? getImageUrl(car.imageDTOS[0]?.carImagePath) : ""
+    car?.imageDTOS?.length
+      ? getImageUrl(car?.imageDTOS[0]?.carImagePath)
+      : "abc"
   );
 
   const imagesShow = car.imageDTOS?.slice(1, 4) ?? [];
@@ -57,11 +98,12 @@ const CarDetail = () => {
       <div className="car-gallery">
         <div className="car-gallery-main">
           <CarImage
-            src={
-              car?.imageDTOS?.length
-                ? getImageUrl(car.imageDTOS[0]?.carImagePath)
+            // src={`${window.location.origin}/newImages/${car?.imageDTOS[0].carImagePath}`}
+            src={`${window.location.origin}/newImages/${
+              car?.imageDTOS && car.imageDTOS.length > 0
+                ? car.imageDTOS[0].carImagePath
                 : ""
-            }
+            }`}
             alt="Main car image"
           />
         </div>
@@ -69,42 +111,16 @@ const CarDetail = () => {
           {imagesShow.map((item, index) => (
             <CarImage
               key={index}
-              src={getImageUrl(item.carImagePath)}
+              src={`${window.location.origin}/newImages/${item.carImagePath}`}
               alt={`Car thumbnail ${index + 1}`}
             />
           ))}
-          <div className="seen-more">
-            <img src="/images/img.png" alt="" />
-            <p className="img-more">Xem tất cả ảnh</p>
-          </div>
         </div>
       </div>
 
       <div className="car-content">
         <div className="car-content-main">
           <p className="car-title">{car.model}</p>
-          {/* <ul className="content__nav-list">
-            <li className="content__nav-item">
-              <a href="#" className="content__nav-link">
-                Số tự động
-              </a>
-            </li>
-            <li className="content__nav-item">
-              <a href="#" className="content__nav-link">
-                Giao xe tận nơi
-              </a>
-            </li>
-            <li className="content__nav-item">
-              <a href="#" className="content__nav-link">
-                Đặt xe nhanh
-              </a>
-            </li>
-            <li className="content__nav-item">
-              <a href="#" className="content__nav-link">
-                Miễn thế chấp
-              </a>
-            </li>
-          </ul> */}
           <hr className="content_nav-hr" />
           <div className="content-section">
             <p className="content-section-title">Đặc điểm</p>
@@ -176,7 +192,7 @@ const CarDetail = () => {
         </div>
         <div className="car-content-right">
           <div className="item-info-right">
-            <p className="price-detail">1.100K /ngày</p>
+            <p className="price-detail">{car.cost?.toLocaleString()} đ/ngày</p>
             <RentalForm />
             <hr className="info-right-hr" />
             <div className="total_money">
@@ -184,10 +200,10 @@ const CarDetail = () => {
               <span>1 100 000đ/ ngày</span>
             </div>
             <hr className="info-right-hr" />
-            {/* <div className="total_money">
+            <div className="total_money">
               <p>Tổng cộng</p>
               <p>1 100 000đ</p>
-            </div> */}
+            </div>
             <div className="rent" onClick={handleOpenModal}>
               <p>CHỌN THUÊ</p>
             </div>

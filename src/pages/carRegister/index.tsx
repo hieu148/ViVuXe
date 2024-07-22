@@ -154,6 +154,11 @@ export interface Car {
   airbags: boolean;
   status: string;
   description: string;
+  imageDTOS: ImageDTOS[];
+}
+
+export interface ImageDTOS {
+  carImagePath: string;
 }
 
 const CarRegister = () => {

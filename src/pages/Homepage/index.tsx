@@ -12,8 +12,6 @@ import NoiBai from "../../assets/NoiBai.jpg";
 import SBDaNang from "../../assets/SBDaNang.jpg";
 
 import carService from "../../common/api/carService";
-import { BASE_HOST } from "../../common/api/axiousClient";
-import { splitFileName } from "../../common/helpers";
 
 interface Item {
   name: string;
@@ -130,7 +128,7 @@ const Homepage: React.FC = () => {
             <div key={car.id} className="car-card">
               <div className="car-image">
                 <img
-                  src={`${window.location.origin}/newImages/${car?.imageDTOS[0].carImagePath}`}
+                  src={`${window.location.origin}/newImages/${car.imageDTOS[0].carImagePath}`}
                 />
               </div>
               <div className="car-info">

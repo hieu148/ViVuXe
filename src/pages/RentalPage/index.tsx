@@ -4,7 +4,6 @@ import { CalendarOutlined, DollarOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import rentalService from "../../common/api/rentalService";
 import { useNavigate } from "react-router-dom";
-import { Pagination } from "antd";
 
 const RentalPage: React.FC = () => {
   interface Rental {

@@ -5,7 +5,6 @@ import { useParams } from "react-router-dom";
 import carService from "../../common/api/carService";
 import { toast } from "react-toastify";
 import CarImage from "./CarImage";
-import { Form } from "antd";
 import rentalService from "../../common/api/rentalService";
 
 interface Car {
@@ -86,7 +85,6 @@ const Modal: React.FC<ModalProps> = ({ show, onClose, dates, diff }) => {
   const handleSubmit = async (values: any) => {
     try {
       await rentalService.createRental(Number(id), startDate, endDate);
-      console.log(values);
       toast.success("Dang ky thanh cong");
       onClose();
     } catch (error) {

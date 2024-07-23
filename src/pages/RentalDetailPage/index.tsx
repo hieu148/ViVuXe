@@ -1,6 +1,5 @@
-import { Card, Col, Menu, Row } from "antd";
+import { Card, Col, Row } from "antd";
 import "./style.scss";
-import anh1 from "../../assets/anh1.png";
 import { CalendarOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import rentalService from "../../common/api/rentalService";

@@ -11,7 +11,6 @@ import dayjs from "dayjs";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import carService from "../../common/api/carService";
-import { getImageUrl } from "../../common/helpers";
 const transmission: any = { Automatic: "Số tự động", Manual: "Số sàn" };
 const fuel: any = { Gasoline: "Xăng", Diesel: "Dầu Diesel" };
 

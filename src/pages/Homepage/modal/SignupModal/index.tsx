@@ -28,7 +28,7 @@ const SignupModal: React.FC<SignupModalProps> = ({ visible, onClose }) => {
       .then((values) => {
         signUp(values);
         console.log(values);
-        // form.resetFields();
+        form.resetFields();
       })
       .catch((error) => {
         console.error("Validation failed:", error);

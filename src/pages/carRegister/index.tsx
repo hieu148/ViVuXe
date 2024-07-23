@@ -239,6 +239,10 @@ const CarRegister = () => {
     }
   };
 
+  const handlePreviousPage = () => {
+    nav("/user");
+  };
+
   return (
     <div className="carregister-page">
       <div className="title">
@@ -252,6 +256,7 @@ const CarRegister = () => {
                 marginRight: "300px",
                 marginLeft: "200px",
               }}
+              onClick={handlePreviousPage}
             >
               <LeftOutlined />
               Quay lại

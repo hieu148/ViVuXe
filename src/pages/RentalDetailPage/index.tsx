@@ -30,6 +30,9 @@ const RentalDetailPage: React.FC = () => {
     name: string;
     cost: number;
     ownerName: string;
+    ownerPhone: string;
+    ownerAccountNumber: string;
+    ownerBankName: string;
     imageDTOS: ImageDTOS[];
   }
 
@@ -141,7 +144,8 @@ const RentalDetailPage: React.FC = () => {
                   <p className="item-info-right-title">Chủ xe</p>
                   <div>
                     <p className="item-info-1">
-                      {rental.carResponse?.ownerName}
+                      {rental.carResponse?.ownerName} - SĐT:{" "}
+                      {rental.carResponse?.ownerPhone}
                     </p>
                   </div>
 
@@ -173,21 +177,21 @@ const RentalDetailPage: React.FC = () => {
                   <div className="item-info-row">
                     <p className="item-info-1">Số tài khoản</p>
                     <p className="item-info-1">
-                      {rental.userResponse?.accountNumber}
+                      {rental.carResponse?.ownerAccountNumber}
                     </p>
                   </div>
 
                   <div className="item-info-row">
                     <p className="item-info-1">Chủ tài khoản</p>
                     <p className="item-info-1">
-                      {rental.userResponse?.fullName}
+                      {rental.carResponse?.ownerName}
                     </p>
                   </div>
 
                   <div className="item-info-row">
                     <p className="item-info-1">Ngân hàng</p>
                     <p className="item-info-1">
-                      {rental.userResponse?.bankName}
+                      {rental.carResponse?.ownerBankName}
                     </p>
                   </div>
                 </div>

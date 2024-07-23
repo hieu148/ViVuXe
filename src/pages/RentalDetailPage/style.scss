@@ -1,4 +1,6 @@
 .rental-detail{
+    margin-top: 20px;
+    margin-bottom: 20px;
     .ant-row{
         width: 100vw;
         justify-content: center;
@@ -13,6 +15,9 @@
     .img-container{
         margin-right: 30px;
         margin-bottom: 20px;
+        >img{
+            width: 500px;
+        }
     }
     .info{
         align-content: center;
@@ -47,7 +52,7 @@ h3{
     .rental-time-info{
         display: flex;
         justify-content: space-between;
-        margin-bottom: 20px;
+        margin: 20px 40px 0 0;
 
         span {
             padding-left: 10px;

@@ -4,6 +4,7 @@ import { CalendarOutlined, DollarOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import rentalService from "../../common/api/rentalService";
 import { useNavigate } from "react-router-dom";
+import { Pagination } from "antd";
 
 const RentalPage: React.FC = () => {
   interface Rental {
@@ -11,7 +12,7 @@ const RentalPage: React.FC = () => {
     rentalId: number;
     rentalDate: string;
     rentalReturn: string;
-    totalCost: number;
+    rentalCost: number;
     image: string;
   }
 
@@ -49,8 +50,6 @@ const RentalPage: React.FC = () => {
     fetchRental();
   }, [page]);
 
-  const path = "anh1.png"; // rental.imagePath
-
   return (
     <div className="trip-grid">
       <h1>Chuyến của tôi</h1>
@@ -81,7 +80,9 @@ const RentalPage: React.FC = () => {
             </div>
             <div className="row">
               <DollarOutlined />
-              <p className="info">Tổng tiền: {rental.carResponse.cost}</p>
+              <p className="info">
+                Tổng tiền: {rental.rentalCost.toLocaleString()}
+              </p>
             </div>
           </div>
         </div>

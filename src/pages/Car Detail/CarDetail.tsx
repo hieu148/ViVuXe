@@ -58,6 +58,8 @@ type RangePickerProps = GetProps<typeof DatePicker.RangePicker>;
 const CarDetail = () => {
   const { id } = useParams();
   const [car, setCar] = useState<Car>({} as Car);
+  const [dates, setDates] = useState<any>();
+  const [diff, setDiff] = useState<number>();
 
   // const [pickupDate, setPickupDate] = useState("2024-06-11T21:00");
   // const [returnDate, setReturnDate] = useState("2024-06-12T21:00");
@@ -70,8 +72,15 @@ const CarDetail = () => {
     return current && current < dayjs().endOf("day");
   };
 
-  const onDatePicker = (values: any) => {
-    console.log(values);
+  const onDatePicker = (dates: any, dateStrings: any) => {
+    console.log("Selected Dates: ", dates);
+    console.log("Formatted Selected Dates: ", dateStrings);
+    setDates(dateStrings);
+    const startDate = dayjs(dates[0]);
+    const endDate = dayjs(dates[1]);
+    const diff = endDate.diff(startDate, "day");
+    setDiff(diff);
+    console.log("diff:" + diff);
   };
 
   const [showModal, setShowModal] = useState(false);
@@ -99,16 +108,6 @@ const CarDetail = () => {
     getCarDetail();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
-
-  console.log(car);
-
-  console.log(car.imageDTOS);
-
-  console.log(
-    car?.imageDTOS?.length
-      ? getImageUrl(car?.imageDTOS[0]?.carImagePath)
-      : "abc"
-  );
 
   const imagesShow = car.imageDTOS?.slice(1, 4) ?? [];
 
@@ -213,51 +212,43 @@ const CarDetail = () => {
         </div>
         <div className="car-content-right">
           <div className="item-info-right">
-            <p className="price-detail">{car.cost?.toLocaleString()} đ/ngày</p>
+            <p className="price-detail">Thời gian thuê xe: </p>
             <form className="rental-form">
               <div className="date-section">
                 <div className="date-box">
-                  {/* <label htmlFor="pickup-date">Nhận xe</label>
-                  {/* <input
-                    type="datetime-local"
-                    className="custom-datetime"
-                    id="pickup-date"
-                    value={pickupDate}
-                    onChange={(e) => setPickupDate(e.target.value)}
-                  /> */}
-
                   <RangePicker
                     disabledDate={disabledDate}
                     onChange={onDatePicker}
                   />
                 </div>
-                <hr />
-                {/* <div className="date-box">
-                  <label htmlFor="return-date">Trả xe</label>
-                  <input
-                    className="custom-datetime"
-                    type="datetime-local"
-                    id="return-date"
-                    value={returnDate}
-                    onChange={(e) => setReturnDate(e.target.value)}
-                  />
-                </div> */}
               </div>
             </form>
             <hr className="info-right-hr" />
             <div className="total_money">
               <span>Đơn giá thuê</span>
-              <span>1 100 000đ/ ngày</span>
+              <span>{car.cost?.toLocaleString()} đ/ ngày</span>
             </div>
             <hr className="info-right-hr" />
             <div className="total_money">
               <p>Tổng cộng</p>
-              <p>1 100 000đ</p>
+              <p>
+                {diff
+                  ? (car.cost * diff).toLocaleString()
+                  : car.cost?.toLocaleString()}
+                đ
+              </p>
             </div>
             <div className="rent" onClick={handleOpenModal}>
               <p>CHỌN THUÊ</p>
             </div>
-            <Modal show={showModal} onClose={handleCloseModal} />
+            {showModal ? (
+              <Modal
+                show={showModal}
+                onClose={handleCloseModal}
+                dates={dates}
+                diff={diff}
+              />
+            ) : null}
           </div>
           <div className="item-info-right">
             <p className="surcharges">Phụ phí phát sinh</p>

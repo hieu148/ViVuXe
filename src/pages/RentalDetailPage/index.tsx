@@ -12,8 +12,14 @@ const RentalDetailPage: React.FC = () => {
     rentalId: number;
     rentalDate: string;
     rentalReturn: string;
-    totalCost: number;
-    image: string;
+    rentalCost: number;
+    userResponse: UserResponse;
+  }
+
+  interface UserResponse {
+    accountNumber: string;
+    fullName: string;
+    bankName: string;
   }
 
   interface CarResponse {
@@ -156,10 +162,34 @@ const RentalDetailPage: React.FC = () => {
 
                   <div className="item-info-row">
                     <p className="item-info-1">Tổng cộng</p>
-                    <p className="item-info-1">{rental.carResponse?.cost} đ</p>
+                    <p className="item-info-1">
+                      {rental.rentalCost?.toLocaleString()} đ
+                    </p>
                   </div>
 
                   <hr className="content_nav-hr" />
+
+                  <p className="item-info-right-title">Thông tin chuyển tiền</p>
+                  <div className="item-info-row">
+                    <p className="item-info-1">Số tài khoản</p>
+                    <p className="item-info-1">
+                      {rental.userResponse?.accountNumber}
+                    </p>
+                  </div>
+
+                  <div className="item-info-row">
+                    <p className="item-info-1">Chủ tài khoản</p>
+                    <p className="item-info-1">
+                      {rental.userResponse?.fullName}
+                    </p>
+                  </div>
+
+                  <div className="item-info-row">
+                    <p className="item-info-1">Ngân hàng</p>
+                    <p className="item-info-1">
+                      {rental.userResponse?.bankName}
+                    </p>
+                  </div>
                 </div>
               </div>
             </Card>

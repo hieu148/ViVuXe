@@ -4,6 +4,9 @@ import "./Modal.scss";
 import { useParams } from "react-router-dom";
 import carService from "../../common/api/carService";
 import { toast } from "react-toastify";
+import CarImage from "./CarImage";
+import { Form } from "antd";
+import rentalService from "../../common/api/rentalService";
 
 interface Car {
   carId: number;
@@ -46,11 +49,16 @@ interface ImageDTOS {
 interface ModalProps {
   show: boolean;
   onClose: () => void;
+  dates?: any;
+  diff: any;
 }
 
-const Modal: React.FC<ModalProps> = ({ show, onClose }) => {
+const Modal: React.FC<ModalProps> = ({ show, onClose, dates, diff }) => {
   const { id } = useParams();
   const [car, setCar] = useState<Car>({} as Car);
+  const [startDate, endDate] = dates;
+
+  console.log(dates);
 
   const getCarDetail = async () => {
     if (id) {
@@ -65,6 +73,7 @@ const Modal: React.FC<ModalProps> = ({ show, onClose }) => {
 
   useEffect(() => {
     getCarDetail();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
@@ -73,6 +82,17 @@ const Modal: React.FC<ModalProps> = ({ show, onClose }) => {
   if (!show) {
     return null;
   }
+
+  const handleSubmit = async (values: any) => {
+    try {
+      await rentalService.createRental(Number(id), startDate, endDate);
+      console.log(values);
+      toast.success("Dang ky thanh cong");
+      onClose();
+    } catch (error) {
+      toast.error("Dang ky that bai");
+    }
+  };
 
   return (
     <div className="modal-overlay">
@@ -95,12 +115,15 @@ const Modal: React.FC<ModalProps> = ({ show, onClose }) => {
         <div className="modal-body">
           <div className="car-info">
             <div className="car-image">
-              src=
-              {`${window.location.origin}/newImages/${
-                car?.imageDTOS && car.imageDTOS.length > 0
-                  ? car.imageDTOS[0].carImagePath
-                  : ""
-              }`}
+              <CarImage
+                // src={`${window.location.origin}/newImages/${car?.imageDTOS[0].carImagePath}`}
+                src={`${window.location.origin}/newImages/${
+                  car?.imageDTOS && car.imageDTOS.length > 0
+                    ? car.imageDTOS[0].carImagePath
+                    : ""
+                }`}
+                alt="Main car image"
+              />
             </div>
             <div className="car-details">
               <h3>
@@ -114,11 +137,11 @@ const Modal: React.FC<ModalProps> = ({ show, onClose }) => {
               <div className="rental-time-detail">
                 <div className="rental-left">
                   <p className="rental-title">Bắt đầu thuê xe</p>
-                  <p className="time-detail">21:00 - 13/06/2024</p>
+                  <p className="time-detail">{startDate}</p>
                 </div>
                 <div className="rental-right">
                   <p className="rental-title">Kết thúc thuê xe</p>
-                  <p className="time-detail">21:00 - 14/06/2024</p>
+                  <p className="time-detail">{endDate}</p>
                 </div>
               </div>
             </div>
@@ -139,15 +162,19 @@ const Modal: React.FC<ModalProps> = ({ show, onClose }) => {
                 <tbody>
                   <tr>
                     <td className="title-detail-3">Đơn giá thuê</td>
-                    <td className="title-detail-3">{car.cost}đ/ngày</td>
+                    <td className="title-detail-3">
+                      {car.cost?.toLocaleString()}đ/ngày
+                    </td>
                   </tr>
                   <tr>
                     <td className="title-detail-3 hr">Số ngày thuê</td>
-                    <td className="title-detail-3 hr">1 ngày</td>
+                    <td className="title-detail-3 hr">{diff} ngày</td>
                   </tr>
                   <tr>
                     <td className="title-detail-2 hr unhr">Tổng cộng</td>
-                    <td className="title-detail-2 hr unhr">1 100 000đ</td>
+                    <td className="title-detail-2 hr unhr">
+                      {(car.cost * diff)?.toLocaleString()}đ
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -158,8 +185,8 @@ const Modal: React.FC<ModalProps> = ({ show, onClose }) => {
           <div className="cancel-button" onClick={onClose}>
             <p>Hủy</p>
           </div>
-          <div className="confirm-button">
-            <p>Gửi yêu cầu thuê xe</p>
+          <div className="confirm-button" onClick={handleSubmit}>
+            <p>Gửi yêu cầu thuê xe </p>
           </div>
         </div>
       </div>

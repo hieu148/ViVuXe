@@ -12,6 +12,7 @@ import NoiBai from "../../assets/NoiBai.jpg";
 import SBDaNang from "../../assets/SBDaNang.jpg";
 
 import carService from "../../common/api/carService";
+import { useNavigate } from "react-router-dom";
 
 interface Item {
   name: string;
@@ -45,7 +46,7 @@ const Homepage: React.FC = () => {
   };
 
   interface Car {
-    id: number;
+    carId: number;
     make: string;
     model: string;
     year: number;
@@ -77,6 +78,12 @@ const Homepage: React.FC = () => {
   useEffect(() => {
     fetchCar();
   }, []);
+
+  const navigate = useNavigate();
+
+  const handleCardClick = (id: number) => {
+    navigate(`/cardetail/${id}`);
+  };
 
   interface ImageWithAnnotation {
     id: number;
@@ -125,7 +132,11 @@ const Homepage: React.FC = () => {
         <p className="title">Xe Phù Hợp Cho Bạn</p>
         <div className="car-grid">
           {allCars.map((car) => (
-            <div key={car.id} className="car-card">
+            <div
+              key={car.carId}
+              className="car-card"
+              onClick={() => handleCardClick(car.carId)}
+            >
               <div className="car-image">
                 <img
                   src={`${window.location.origin}/newImages/${car.imageDTOS[0].carImagePath}`}
@@ -139,8 +150,8 @@ const Homepage: React.FC = () => {
                 <p className="location">{car.address}</p>
                 <div className="bottom_card">
                   <p className="price">
-                    {car.cost.toLocaleString()}K
-                    <span className="date">/ngày</span>
+                    {car.cost.toLocaleString()}đ
+                    <span className="date"> /ngày</span>
                   </p>
                 </div>
               </div>

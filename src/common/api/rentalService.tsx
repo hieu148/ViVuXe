@@ -11,13 +11,11 @@ const getRentalPaging = (page: number, size: number) => {
 
 const createRental = (
   carId: number,
-  userId: number,
   rentalDate: string,
   rentalReturn: string
 ) => {
-  return axiosClient.post(`${BASE_URL}/create-rental`, {
+  return axiosClient.post(`${BASE_URL}`, {
     carId,
-    userId,
     rentalDate,
     rentalReturn,
   });
